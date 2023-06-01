@@ -1,11 +1,11 @@
 import GlobalStyles from "./GlobalStyles";
-import DashBoard from "./components/dashBoard";
+import { RouterPage } from "./routes/routes";
 
 function App() {
   return (
     <>
       <GlobalStyles />
-      <DashBoard />
+      <RouterPage />
     </>
   );
 }

@@ -12,13 +12,13 @@ import lt from "../../assets/lt.svg";
 export default function Header() {
   return (
     <HeaderStyled>
-      {/* <ButtonAndLessBox>
+      <ButtonAndLessBox>
         <LessThanIcon src={lt} />
         <ButtonBackToHome>Todos Pokémons</ButtonBackToHome>
-      </ButtonAndLessBox> */}
+      </ButtonAndLessBox>
 
       <Image src={logo} />
-      <ButtonPokedex>Excluir da Pokédex</ButtonPokedex>
+      <ButtonPokedex>Pokédex</ButtonPokedex>
     </HeaderStyled>
   );
 }
