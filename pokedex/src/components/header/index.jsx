@@ -8,17 +8,23 @@ import {
 } from "./style";
 import logo from "../../assets/logo.svg";
 import lt from "../../assets/lt.svg";
-
+import { GoToHome, GoToPokedex } from "../../routes/coordination";
+import { useNavigate } from "react-router-dom";
 export default function Header() {
+  const navigate = useNavigate();
   return (
     <HeaderStyled>
       <ButtonAndLessBox>
         <LessThanIcon src={lt} />
-        <ButtonBackToHome>Todos Pokémons</ButtonBackToHome>
+        <ButtonBackToHome onClick={() => GoToHome(navigate)}>
+          Todos Pokémons
+        </ButtonBackToHome>
       </ButtonAndLessBox>
 
       <Image src={logo} />
-      <ButtonPokedex>Pokédex</ButtonPokedex>
+      <ButtonPokedex onClick={() => GoToPokedex(navigate)}>
+        Pokédex
+      </ButtonPokedex>
     </HeaderStyled>
   );
 }
