@@ -1,10 +1,10 @@
+import { PageTittle, PokeListContainer } from "../../GlobalStyles";
 import PokemonCard from "../../components/pokemonCard";
-import { PokeListContainer, PokemonListPageTittle } from "./style";
 
 export default function PokemonListPage() {
   return (
     <>
-      <PokemonListPageTittle>Todos Pokémons</PokemonListPageTittle>
+      <PageTittle>Todos Pokémons</PageTittle>
       <PokeListContainer>
         <PokemonCard />
         <PokemonCard />
