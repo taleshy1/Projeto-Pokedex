@@ -9,9 +9,11 @@ import {
 import logo from "../../assets/logo.svg";
 import lt from "../../assets/lt.svg";
 import { GoToHome, GoToPokedex } from "../../routes/coordination";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 export default function Header() {
   const navigate = useNavigate();
+  // const location = useLocation();
+  // console.log(location);
   return (
     <HeaderStyled>
       <ButtonAndLessBox>

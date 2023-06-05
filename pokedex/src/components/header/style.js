@@ -28,6 +28,7 @@ export const ButtonPokedex = styled.button`
   cursor: pointer;
   align-self: center;
   grid-column: 13/16;
+  z-index: 2;
 `;
 
 export const ButtonAndLessBox = styled.div`
@@ -37,6 +38,7 @@ export const ButtonAndLessBox = styled.div`
   display: flex;
   align-self: center;
   gap: 2%;
+  z-index: 2;
 `;
 export const ButtonBackToHome = styled.button`
   background: transparent;
