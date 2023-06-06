@@ -2,6 +2,7 @@ import {
   ButtonAndLessBox,
   ButtonBackToHome,
   ButtonPokedex,
+  ButtonRemovePokemon,
   HeaderStyled,
   Image,
   LessThanIcon,
@@ -12,21 +13,36 @@ import { GoToHome, GoToPokedex } from "../../routes/coordination";
 import { useLocation, useNavigate } from "react-router-dom";
 export default function Header() {
   const navigate = useNavigate();
-  // const location = useLocation();
-  // console.log(location);
+  const location = useLocation();
+  console.log(location);
   return (
     <HeaderStyled>
-      <ButtonAndLessBox>
-        <LessThanIcon src={lt} />
-        <ButtonBackToHome onClick={() => GoToHome(navigate)}>
-          Todos Pokémons
-        </ButtonBackToHome>
-      </ButtonAndLessBox>
+      {location.pathname !== "/" && (
+        <ButtonAndLessBox>
+          <LessThanIcon src={lt} />
+          <ButtonBackToHome onClick={() => GoToHome(navigate)}>
+            Todos Pokémons
+          </ButtonBackToHome>
+        </ButtonAndLessBox>
+      )}
 
       <Image src={logo} />
-      <ButtonPokedex onClick={() => GoToPokedex(navigate)}>
-        Pokédex
-      </ButtonPokedex>
+
+      {location.pathname === "/" && (
+        <ButtonPokedex onClick={() => GoToPokedex(navigate)}>
+          Pokédex
+        </ButtonPokedex>
+      )}
+
+      {location.pathname.includes("/details") && (
+        <ButtonRemovePokemon
+          onClick={() => (
+            alert("Pokemon Removido da pokedex"), GoToPokedex(navigate)
+          )}
+        >
+          Excluir da Pokédex
+        </ButtonRemovePokemon>
+      )}
     </HeaderStyled>
   );
 }
