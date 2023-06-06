@@ -10,6 +10,8 @@ export default function PokemonListPage() {
         <PokemonCard />
         <PokemonCard />
         <PokemonCard />
+        <PokemonCard />
+        <PokemonCard />
       </PokeListContainer>
     </>
   );

@@ -104,7 +104,6 @@ export const Stats = styled.div`
   padding: 2% 0 2% 0;
   text-align: right;
   span:nth-child(1) {
-    /* align-self: flex-end; */
     width: 30%;
     padding-right: 2%;
   }
