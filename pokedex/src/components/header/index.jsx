@@ -10,10 +10,23 @@ import {
 import logo from "../../assets/logo.svg";
 import lt from "../../assets/lt.svg";
 import { GoToHome, GoToPokedex } from "../../routes/coordination";
-import { useLocation, useNavigate } from "react-router-dom";
-export default function Header() {
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+export default function Header({
+  setPokemonsOnPokedex,
+  pokemonsOnPokedex,
+  idPokemon,
+}) {
   const navigate = useNavigate();
   const location = useLocation();
+  console.log(idPokemon);
+  const removePokemon = () => {
+    const newPokeList = pokemonsOnPokedex.filter(
+      (pokemon) => pokemon.id !== idPokemon
+    );
+    setPokemonsOnPokedex(newPokeList);
+    GoToPokedex(navigate);
+  };
+
   return (
     <HeaderStyled>
       {location.pathname !== "/" && (
@@ -36,7 +49,7 @@ export default function Header() {
       {location.pathname.includes("/details") && (
         <ButtonRemovePokemon
           onClick={() => (
-            alert("Pokemon Removido da pokedex"), GoToPokedex(navigate)
+            alert("Pokemon Removido da pokedex"), removePokemon()
           )}
         >
           Excluir da Pokédex

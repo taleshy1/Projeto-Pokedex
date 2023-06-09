@@ -7,6 +7,7 @@ export default createGlobalStyle`
     box-sizing: border-box;
 }
 body{
+  width: 100%;
     background-color: #5E5E5E;
 }
 
@@ -23,7 +24,7 @@ export const PageTittle = styled.h1`
 `;
 
 export const PokeListContainer = styled.div`
-  width: 100vw;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;

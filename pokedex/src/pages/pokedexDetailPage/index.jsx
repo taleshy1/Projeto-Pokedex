@@ -19,87 +19,90 @@ import {
   TypesBox,
 } from "./style";
 import pokeballDetail from "../../assets/pokeballDetailInsideBackground.svg";
-import pokemonImageDetail from "../../assets/pokemonDetailPage.svg";
-import grassType from "../../assets/grassTypeIcon.svg";
-import poisonType from "../../assets/poisonTypeIcon.svg";
+import pokeType from "../../utils/types";
+import { useParams } from "react-router-dom";
+import useRequest from "../../hooks/useGetPokeList";
+
 export default function PokedexDetailPage() {
-  const status = [45, 49, 49, 65, 65, 45];
-  const moves = ["Razor Wind", "Sword Dance", "Cut", "Vine Whip"];
+  const id = useParams();
+  const { data, isLoading } = useRequest(id.id);
+  let moveCount = 0;
+  let total = 0;
+  if (!isLoading) {
+    for (const stat of data.stats) {
+      total += stat.base_stat;
+    }
+  }
   return (
     <>
-      <PageTittle>Detalhes</PageTittle>
-      <PokeBallBackground src={pokeballBackground} alt="" />
-      <Container>
-        <InfosBox>
-          <PokeballDetail src={pokeballDetail} alt="pokeball" />
-          <PokemonImage src={pokemonImageDetail} alt="" />
+      {isLoading ? (
+        <PageTittle />
+      ) : (
+        <>
+          <PageTittle>Detalhes</PageTittle>
+          <PokeBallBackground src={pokeballBackground} alt="" />
+          <Container>
+            <InfosBox type={data.types}>
+              <PokeballDetail src={pokeballDetail} alt="pokeball" />
+              <PokemonImage
+                src={data.sprites.other["official-artwork"].front_default}
+                alt=""
+              />
 
-          <InfosContainer>
-            <PicsContainer>
-              <Pic1>
-                <img src={pokemonImageDetail} alt="" />
-              </Pic1>
-              <Pic2>
-                <img src={pokemonImageDetail} alt="" />
-              </Pic2>
-            </PicsContainer>
-            <StatsContainer>
-              <h2>Base stats</h2>
-              <Stats>
-                <span>HP</span>
-                <span>{status[0]}</span>
+              <InfosContainer>
+                <PicsContainer>
+                  <Pic1>
+                    <img src={data.sprites.front_default} alt="" />
+                  </Pic1>
+                  <Pic2>
+                    <img src={data.sprites.back_default} alt="" />
+                  </Pic2>
+                </PicsContainer>
+                <StatsContainer>
+                  <h2>Base stats</h2>
+                  {data.stats.map((stat) => (
+                    <Stats key={stat.stat.name}>
+                      <span>{stat.stat.name}</span>
+                      <span>{stat.base_stat}</span>
 
-                <ProgressBar stat={status[0]}></ProgressBar>
-              </Stats>
-              <Stats>
-                <span>Attack</span>
-                <span>{status[1]}</span>
-                <ProgressBar stat={status[1]}></ProgressBar>
-              </Stats>
-              <Stats>
-                <span>Defense</span>
-                <span>{status[2]}</span>
-                <ProgressBar stat={status[2]}></ProgressBar>
-              </Stats>
-              <Stats>
-                <span>Sp. Atk</span>
-                <span>{status[3]}</span>
-                <ProgressBar stat={status[3]}></ProgressBar>
-              </Stats>
-              <Stats>
-                <span>Sp. Def</span>
-                <span>{status[4]}</span>
-                <ProgressBar stat={status[4]}></ProgressBar>
-              </Stats>
-              <Stats>
-                <span>Speed</span>
-                <span>{status[5]}</span>
-                <ProgressBar stat={status[5]}></ProgressBar>
-              </Stats>
-              <Stats>
-                <p>Total</p>
-                <span>318</span>
-              </Stats>
-            </StatsContainer>
-            <MovesAndInfosContainer>
-              <NameIdTypeBox>
-                <p>#01</p>
-                <p>Bulbasaur</p>
-                <TypesBox>
-                  <img src={grassType} alt="" />
-                  <img src={poisonType} alt="" />
-                </TypesBox>
-              </NameIdTypeBox>
-              <MovesBox>
-                <h2>Moves:</h2>
-                {moves.map((move) => {
-                  return <p>{move}</p>;
-                })}
-              </MovesBox>
-            </MovesAndInfosContainer>
-          </InfosContainer>
-        </InfosBox>
-      </Container>
+                      <ProgressBar stat={stat.base_stat}></ProgressBar>
+                    </Stats>
+                  ))}
+                  <Stats>
+                    <p>total:</p>
+                    <span>{total}</span>
+                  </Stats>
+                </StatsContainer>
+                <MovesAndInfosContainer>
+                  <NameIdTypeBox>
+                    <p>#{data.id < 10 ? `0${data.id}` : data.id}</p>
+                    <p>{data.name}</p>
+                    <TypesBox>
+                      {data.types.map((type) => {
+                        return (
+                          <img
+                            src={pokeType[type.type.name]}
+                            key={type.type.name}
+                          />
+                        );
+                      })}
+                    </TypesBox>
+                  </NameIdTypeBox>
+                  <MovesBox>
+                    <h2>Moves:</h2>
+                    {data.moves.map((move) => {
+                      if (moveCount < 8) {
+                        moveCount += 1;
+                        return <p>{move.move.name}</p>;
+                      }
+                    })}
+                  </MovesBox>
+                </MovesAndInfosContainer>
+              </InfosContainer>
+            </InfosBox>
+          </Container>
+        </>
+      )}
     </>
   );
 }

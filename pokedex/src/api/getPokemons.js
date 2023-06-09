@@ -26,7 +26,6 @@ export async function getPokeDetails(url) {
         limit: 21,
       },
     });
-    console.log(res);
   } catch (error) {
     console.log(error);
   }

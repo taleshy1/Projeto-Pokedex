@@ -12,38 +12,63 @@ import {
   Pokebola,
   TypesOnCard,
 } from "./style";
-import pokemonImage from "../../assets/pokemonm.svg";
+import pokeType from "../../utils/types";
 import fundoPokebola from "../../assets/fundo-pokebola.svg";
-import grassType from "../../assets/grassTypeIcon.svg";
-import poisonType from "../../assets/poisonTypeIcon.svg";
 import { GoToDetails } from "../../routes/coordination";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-export default function PokemonCard({ pokemonInfos }) {
-  
-  const imageLink = pokemonInfos.sprites.other["official-artwork"].front_default
+export default function PokemonCard({
+  pokemonInfos,
+  catchPokemon,
+  pokemonsOnPokedex,
+  idPokemon,
+  setIdPokemon,
+}) {
+  const [pokemonIsOnPokedex, setPokemonIsOnPokedex] = useState(true);
+  const imageLink =
+    pokemonInfos.sprites.other["official-artwork"].front_default;
   const navigate = useNavigate();
-
+  const location = useLocation();
+  useEffect(() => {
+    if (location.pathname === "/") {
+      setPokemonIsOnPokedex(
+        pokemonsOnPokedex.find((pokemon) => pokemon.id === pokemonInfos.id)
+      );
+    }
+  });
+  function handleDetailButton() {
+    setIdPokemon(pokemonInfos.id);
+    GoToDetails(navigate, pokemonInfos.id);
+  }
   return (
     <CardBox>
       <PokeImg src={imageLink} alt="" />
-      <BoxInsideTheBox>
+      <BoxInsideTheBox type={pokemonInfos.types}>
         <InfoAndButtonBox>
           <InfoBox>
             <InfoText>
-              <IdPokemon># {pokemonInfos.id < 10? `0${pokemonInfos.id}` : pokemonInfos.id}</IdPokemon>
+              <IdPokemon>
+                #{" "}
+                {pokemonInfos.id < 10 ? `0${pokemonInfos.id}` : pokemonInfos.id}
+              </IdPokemon>
               <NamePokemon>{pokemonInfos.name}</NamePokemon>
             </InfoText>
             <TypesOnCard>
-              <img src={grassType} alt="" />
-              <img src={poisonType} alt="" />
+              {pokemonInfos.types.map((type) => {
+                return (
+                  <img src={pokeType[type.type.name]} key={type.type.name} />
+                );
+              })}
             </TypesOnCard>
           </InfoBox>
-          <ButtonDetails onClick={() => GoToDetails(navigate, pokemonInfos.id)}>
-            Detalhes
-          </ButtonDetails>
+          <ButtonDetails onClick={handleDetailButton}>Detalhes</ButtonDetails>
         </InfoAndButtonBox>
-        <CatchButton>Capturar!</CatchButton>
+        {!pokemonIsOnPokedex && (
+          <CatchButton onClick={() => catchPokemon(pokemonInfos)}>
+            Capturar!
+          </CatchButton>
+        )}
         <Pokebola src={fundoPokebola} alt="" />
       </BoxInsideTheBox>
     </CardBox>
