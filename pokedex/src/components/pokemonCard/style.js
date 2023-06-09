@@ -1,10 +1,6 @@
 import styled from "styled-components";
 import themes from "../../utils/themes";
-// const getBackgroundColor = (type) => {
-//   if (type.length > 0) {
-//     return themes.colors.backgroundCard[type[0].type.name];
-//   }
-// }
+
 export const CardBox = styled.div`
   width: 30%;
   height: 27vh;

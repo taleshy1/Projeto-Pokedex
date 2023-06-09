@@ -11,7 +11,7 @@ export default function useRequest(id, initialState) {
       pokeApi
         .get(`/pokemon/`, {
           params: {
-            limit: 200,
+            limit: 21,
           },
         })
         .then((res) => {
