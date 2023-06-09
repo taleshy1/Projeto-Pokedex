@@ -6,8 +6,8 @@ import { useEffect } from "react";
 export default function PokedexPage({
   pokemonsOnPokedex,
   setPokemonsOnPokedex,
-  idPokemon,
-  setIdPokemon,
+  Pokemon,
+  setPokemon,
 }) {
   const sorterdPokemons = pokemonsOnPokedex.sort((pokemon1, pokemon2) => {
     if (pokemon1.id < pokemon2.id) {
@@ -29,8 +29,9 @@ export default function PokedexPage({
               key={pokemon.id}
               pokemonInfos={pokemon}
               pokemonsOnPokedex={pokemonsOnPokedex}
-              idPokemon={idPokemon}
-              setIdPokemon={setIdPokemon}
+              setPokemonsOnPokedex={setPokemonsOnPokedex}
+              pokemon={pokemon}
+              setPokemon={setPokemon}
             />
           );
         })}

@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "../components/header";
 import PokemonListPage from "../pages/pokemonsListPage";
 import PokedexPage from "../pages/pokedexPage";
@@ -7,14 +7,18 @@ import { useState } from "react";
 
 export function RouterPage() {
   const [pokemonsOnPokedex, setPokemonsOnPokedex] = useState([]);
-  const [idPokemon, setIdPokemon] = useState(0);
+  const [pokemon, setPokemon] = useState({});
 
+  function catchPokemon(pokemon) {
+    setPokemonsOnPokedex([...pokemonsOnPokedex, pokemon]);
+  }
   return (
     <BrowserRouter>
       <Header
         pokemonsOnPokedex={pokemonsOnPokedex}
         setPokemonsOnPokedex={setPokemonsOnPokedex}
-        idPokemon={idPokemon}
+        pokemon={pokemon}
+        catchPokemon={catchPokemon}
       />
       <Routes>
         <Route
@@ -23,8 +27,9 @@ export function RouterPage() {
             <PokemonListPage
               pokemonsOnPokedex={pokemonsOnPokedex}
               setPokemonsOnPokedex={setPokemonsOnPokedex}
-              idPokemon={idPokemon}
-              setIdPokemon={setIdPokemon}
+              pokemon={pokemon}
+              setPokemon={setPokemon}
+              catchPokemon={catchPokemon}
             />
           }
         />
@@ -34,8 +39,8 @@ export function RouterPage() {
             <PokedexPage
               pokemonsOnPokedex={pokemonsOnPokedex}
               setPokemonsOnPokedex={setPokemonsOnPokedex}
-              idPokemon={idPokemon}
-              setIdPokemon={setIdPokemon}
+              pokemon={pokemon}
+              setPokemon={setPokemon}
             />
           }
         />

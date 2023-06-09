@@ -10,6 +10,7 @@ import {
   NamePokemon,
   PokeImg,
   Pokebola,
+  RemoveButton,
   TypesOnCard,
 } from "./style";
 import pokeType from "../../utils/types";
@@ -22,14 +23,13 @@ export default function PokemonCard({
   pokemonInfos,
   catchPokemon,
   pokemonsOnPokedex,
-  idPokemon,
-  setIdPokemon,
+  setPokemonsOnPokedex,
+  setPokemon,
 }) {
   const [pokemonIsOnPokedex, setPokemonIsOnPokedex] = useState(true);
-  const imageLink =
-    pokemonInfos.sprites.other["official-artwork"].front_default;
   const navigate = useNavigate();
   const location = useLocation();
+
   useEffect(() => {
     if (location.pathname === "/") {
       setPokemonIsOnPokedex(
@@ -38,12 +38,21 @@ export default function PokemonCard({
     }
   });
   function handleDetailButton() {
-    setIdPokemon(pokemonInfos.id);
+    setPokemon(pokemonInfos);
     GoToDetails(navigate, pokemonInfos.id);
   }
+
+  function removePokemon(id) {
+    const newList = pokemonsOnPokedex.filter((pokemon) => pokemon.id !== id);
+    setPokemonsOnPokedex(newList);
+  }
+
   return (
     <CardBox>
-      <PokeImg src={imageLink} alt="" />
+      <PokeImg
+        src={pokemonInfos.sprites.other["official-artwork"].front_default}
+        alt=""
+      />
       <BoxInsideTheBox type={pokemonInfos.types}>
         <InfoAndButtonBox>
           <InfoBox>
@@ -68,6 +77,11 @@ export default function PokemonCard({
           <CatchButton onClick={() => catchPokemon(pokemonInfos)}>
             Capturar!
           </CatchButton>
+        )}
+        {location.pathname === "/pokedex" && (
+          <RemoveButton onClick={() => removePokemon(pokemonInfos.id)}>
+            Excluir!
+          </RemoveButton>
         )}
         <Pokebola src={fundoPokebola} alt="" />
       </BoxInsideTheBox>

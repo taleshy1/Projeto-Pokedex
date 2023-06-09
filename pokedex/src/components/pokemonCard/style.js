@@ -103,3 +103,17 @@ export const CatchButton = styled.button`
   z-index: 20;
   cursor: url("https://cur.cursors-4u.net/games/gam-13/gam1282.cur"), pointer;
 `;
+
+export const RemoveButton = styled.button`
+  width: 25%;
+  height: 15%;
+  font-size: 1vw;
+  background: #ff6262;
+  border-radius: 0.4vw;
+  border: 2px solid white;
+  margin-right: 4%;
+  position: absolute;
+  bottom: 5%;
+  right: 3%;
+  z-index: 20;
+`

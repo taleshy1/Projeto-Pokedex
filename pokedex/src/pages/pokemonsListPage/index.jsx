@@ -7,13 +7,14 @@ import useRequest from "../../hooks/useGetPokeList";
 export default function PokemonListPage({
   pokemonsOnPokedex,
   setPokemonsOnPokedex,
-  idPokemon,
-  setIdPokemon,
+  pokemon,
+  setPokemon,
+  catchPokemon,
 }) {
   const { data, isLoading } = useRequest("", []);
-  function catchPokemon(pokemon) {
-    setPokemonsOnPokedex([...pokemonsOnPokedex, pokemon]);
-  }
+  // function catchPokemon(pokemon) {
+  //   setPokemonsOnPokedex([...pokemonsOnPokedex, pokemon]);
+  // }
   return (
     <>
       <PageTittle>Todos Pokémons</PageTittle>
@@ -22,11 +23,12 @@ export default function PokemonListPage({
           return (
             <PokemonCard
               pokemonsOnPokedex={pokemonsOnPokedex}
+              setPokemonsOnPokedex={setPokemonsOnPokedex}
               key={pokemon.id}
               pokemonInfos={pokemon}
               catchPokemon={catchPokemon}
-              idPokemon={idPokemon}
-              setIdPokemon={setIdPokemon}
+              pokemon={pokemon}
+              setPokemon={setPokemon}
             />
           );
         })}

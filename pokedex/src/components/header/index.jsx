@@ -1,4 +1,5 @@
 import {
+  AdicionarAPokedex,
   ButtonAndLessBox,
   ButtonBackToHome,
   ButtonPokedex,
@@ -10,18 +11,19 @@ import {
 import logo from "../../assets/logo.svg";
 import lt from "../../assets/lt.svg";
 import { GoToHome, GoToPokedex } from "../../routes/coordination";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+
 export default function Header({
   setPokemonsOnPokedex,
   pokemonsOnPokedex,
-  idPokemon,
+  pokemon,
+  catchPokemon,
 }) {
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(idPokemon);
   const removePokemon = () => {
     const newPokeList = pokemonsOnPokedex.filter(
-      (pokemon) => pokemon.id !== idPokemon
+      (pokemonio) => pokemonio.id !== pokemon.id
     );
     setPokemonsOnPokedex(newPokeList);
     GoToPokedex(navigate);
@@ -46,15 +48,27 @@ export default function Header({
         </ButtonPokedex>
       )}
 
-      {location.pathname.includes("/details") && (
-        <ButtonRemovePokemon
-          onClick={() => (
-            alert("Pokemon Removido da pokedex"), removePokemon()
-          )}
-        >
-          Excluir da Pokédex
-        </ButtonRemovePokemon>
-      )}
+      {location.pathname.includes("/details") &&
+        (pokemonsOnPokedex.find((pokemonio) => pokemonio.id === pokemon.id) ? (
+          <ButtonRemovePokemon
+            onClick={() => {
+              alert("Pokemon Removido da pokedex");
+              removePokemon();
+            }}
+          >
+            Excluir da Pokédex
+          </ButtonRemovePokemon>
+        ) : (
+          <AdicionarAPokedex
+            onClick={() => {
+              alert("Pokemon Adicionado na pokedex");
+              catchPokemon(pokemon);
+              GoToPokedex(navigate);
+            }}
+          >
+            Adicionar a pokédex
+          </AdicionarAPokedex>
+        ))}
     </HeaderStyled>
   );
 }
