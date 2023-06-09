@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import themes from "../../utils/themes";
 
 export const Container = styled.div`
   width: 100%;
@@ -17,7 +18,7 @@ export const InfosBox = styled.div`
   margin-top: 4%;
   width: 98%;
   height: 90%;
-  background: #729f92;
+  background: ${({ type }) => themes.colors.backgroundCard[type[0].type.name]};
   border-radius: 1.9vw;
   display: flex;
   position: relative;
@@ -46,7 +47,7 @@ export const InfosContainer = styled.div`
 
 export const PicsContainer = styled.div`
   height: 100%;
-  width: 32%;
+  width: 28%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -79,7 +80,7 @@ export const Pic2 = styled.div`
 
 export const StatsContainer = styled.div`
   height: 100%;
-  width: 32%;
+  width: 38%;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -104,8 +105,9 @@ export const Stats = styled.div`
   padding: 2% 0 2% 0;
   text-align: right;
   span:nth-child(1) {
-    width: 30%;
+    width: 50%;
     padding-right: 2%;
+    font-size: 0.9vw;
   }
 `;
 
@@ -123,7 +125,7 @@ export const ProgressBar = styled.div`
 
 export const MovesAndInfosContainer = styled.div`
   height: 100%;
-  width: 32%;
+  width: 30%;
   z-index: 2;
   display: flex;
   flex-direction: column;

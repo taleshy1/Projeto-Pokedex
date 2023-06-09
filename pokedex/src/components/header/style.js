@@ -73,3 +73,20 @@ export const ButtonRemovePokemon = styled.button`
   border-radius: 0.4vw;
   z-index: 2;
 `;
+
+export const AdicionarAPokedex = styled.button`
+  height: 30%;
+  border: none;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 0.8vw;
+  color: #ffffff;
+  cursor: pointer;
+  align-self: center;
+  grid-column: 13/16;
+  width: 70%;
+  background: #33a4f5;
+  border-radius: 0.4vw;
+  z-index: 2;
+`

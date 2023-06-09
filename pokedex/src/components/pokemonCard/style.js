@@ -1,4 +1,10 @@
 import styled from "styled-components";
+import themes from "../../utils/themes";
+// const getBackgroundColor = (type) => {
+//   if (type.length > 0) {
+//     return themes.colors.backgroundCard[type[0].type.name];
+//   }
+// }
 export const CardBox = styled.div`
   width: 30%;
   height: 27vh;
@@ -9,18 +15,16 @@ export const CardBox = styled.div`
 `;
 
 export const BoxInsideTheBox = styled.div`
-  background: #729f92;
+  background: ${({ type }) => themes.colors.backgroundCard[type[0].type.name]};
   width: 100%;
   height: 80%;
-  border-radius: 12px;
+  border-radius: 0.6vw;
   display: flex;
   justify-content: space-between;
-  overflow: hidden;
 `;
 
 export const Pokebola = styled.img`
-  //!EDIT this
-  /* width: 80%; */
+
 `;
 
 export const PokeImg = styled.img`
@@ -40,7 +44,6 @@ export const InfoBox = styled.div`
   flex-direction: column;
   justify-content: space-around;
   padding-left: 3%;
-  overflow: hidden;
 `;
 
 export const InfoText = styled.div`
@@ -57,9 +60,9 @@ export const NamePokemon = styled.p`
 export const TypesOnCard = styled.div`
   display: flex;
   gap: 3%;
-  width: 70%;
+  width: 100%;
   img {
-    width: 48%;
+    width: 45%;
   }
 `;
 
@@ -91,7 +94,7 @@ export const CatchButton = styled.button`
   height: 15%;
   font-size: 1vw;
   background: #ffffff;
-  border-radius: 8px;
+  border-radius: 0.4vw;
   border: none;
   margin-right: 4%;
   position: absolute;
@@ -100,3 +103,17 @@ export const CatchButton = styled.button`
   z-index: 20;
   cursor: url("https://cur.cursors-4u.net/games/gam-13/gam1282.cur"), pointer;
 `;
+
+export const RemoveButton = styled.button`
+  width: 25%;
+  height: 15%;
+  font-size: 1vw;
+  background: #ff6262;
+  border-radius: 0.4vw;
+  border: 2px solid white;
+  margin-right: 4%;
+  position: absolute;
+  bottom: 5%;
+  right: 3%;
+  z-index: 20;
+`

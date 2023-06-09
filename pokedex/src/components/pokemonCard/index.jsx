@@ -10,37 +10,79 @@ import {
   NamePokemon,
   PokeImg,
   Pokebola,
+  RemoveButton,
   TypesOnCard,
 } from "./style";
-import pokemonImage from "../../assets/pokemonm.svg";
+import pokeType from "../../utils/types";
 import fundoPokebola from "../../assets/fundo-pokebola.svg";
-import grassType from "../../assets/grassTypeIcon.svg";
-import poisonType from "../../assets/poisonTypeIcon.svg";
 import { GoToDetails } from "../../routes/coordination";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-export default function PokemonCard() {
+export default function PokemonCard({
+  pokemonInfos,
+  catchPokemon,
+  pokemonsOnPokedex,
+  setPokemonsOnPokedex,
+  setPokemon,
+}) {
+  const [pokemonIsOnPokedex, setPokemonIsOnPokedex] = useState(true);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === "/") {
+      setPokemonIsOnPokedex(
+        pokemonsOnPokedex.find((pokemon) => pokemon.id === pokemonInfos.id)
+      );
+    }
+  });
+  function handleDetailButton() {
+    setPokemon(pokemonInfos);
+    GoToDetails(navigate, pokemonInfos.id);
+  }
+
+  function removePokemon(id) {
+    const newList = pokemonsOnPokedex.filter((pokemon) => pokemon.id !== id);
+    setPokemonsOnPokedex(newList);
+  }
+
   return (
     <CardBox>
-      <PokeImg src={pokemonImage} alt="" />
-      <BoxInsideTheBox>
+      <PokeImg
+        src={pokemonInfos.sprites.other["official-artwork"].front_default}
+        alt=""
+      />
+      <BoxInsideTheBox type={pokemonInfos.types}>
         <InfoAndButtonBox>
           <InfoBox>
             <InfoText>
-              <IdPokemon>#01</IdPokemon>
-              <NamePokemon>Bulbasaur</NamePokemon>
+              <IdPokemon>
+                #{" "}
+                {pokemonInfos.id < 10 ? `0${pokemonInfos.id}` : pokemonInfos.id}
+              </IdPokemon>
+              <NamePokemon>{pokemonInfos.name}</NamePokemon>
             </InfoText>
             <TypesOnCard>
-              <img src={grassType} alt="" />
-              <img src={poisonType} alt="" />
+              {pokemonInfos.types.map((type) => {
+                return (
+                  <img src={pokeType[type.type.name]} key={type.type.name} />
+                );
+              })}
             </TypesOnCard>
           </InfoBox>
-          <ButtonDetails onClick={() => GoToDetails(navigate, "1")}>
-            Detalhes
-          </ButtonDetails>
+          <ButtonDetails onClick={handleDetailButton}>Detalhes</ButtonDetails>
         </InfoAndButtonBox>
-        <CatchButton>Capturar!</CatchButton>
+        {!pokemonIsOnPokedex && (
+          <CatchButton onClick={() => catchPokemon(pokemonInfos)}>
+            Capturar!
+          </CatchButton>
+        )}
+        {location.pathname === "/pokedex" && (
+          <RemoveButton onClick={() => removePokemon(pokemonInfos.id)}>
+            Excluir!
+          </RemoveButton>
+        )}
         <Pokebola src={fundoPokebola} alt="" />
       </BoxInsideTheBox>
     </CardBox>
