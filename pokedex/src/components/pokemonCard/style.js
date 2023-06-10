@@ -35,7 +35,7 @@ export const InfoBox = styled.div`
   color: #ffffff;
   font-family: "Inter Tight", sans-serif;
   height: 60%;
-  width: 60%;
+  width: 90%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -43,7 +43,8 @@ export const InfoBox = styled.div`
 `;
 
 export const InfoText = styled.div`
-  height: 50%;
+/* border: 1px solid black; */
+  /* height: 50%; */
 `;
 
 export const IdPokemon = styled.p`
@@ -56,9 +57,10 @@ export const NamePokemon = styled.p`
 export const TypesOnCard = styled.div`
   display: flex;
   gap: 3%;
-  width: 100%;
+  width: 55%;
   img {
-    width: 45%;
+    width: fit-content;
+    clip: auto;
   }
 `;
 

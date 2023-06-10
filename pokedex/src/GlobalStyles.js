@@ -8,7 +8,7 @@ export default createGlobalStyle`
 }
 body{
   width: 100%;
-    background-color: #5E5E5E;
+    background-color: #5E5E5E!important;
 }
 
 `;

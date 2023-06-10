@@ -1,11 +1,14 @@
 import GlobalStyles from "./GlobalStyles";
 import { RouterPage } from "./routes/routes";
+import { ChakraProvider } from "@chakra-ui/react";
 
 function App() {
   return (
     <>
       <GlobalStyles />
-      <RouterPage />
+      <ChakraProvider>
+        <RouterPage />
+      </ChakraProvider>
     </>
   );
 }
