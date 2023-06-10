@@ -2,28 +2,29 @@ import styled from "styled-components";
 
 export const HeaderStyled = styled.div`
   background-color: #ffffff;
-  height: 25vh;
+  height: 7rem;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(16, 1fr);
 `;
 
 export const Image = styled.img`
-  width: 64%;
+  width: 14rem;
   grid-column: 7/11;
   align-self: center;
 `;
 
 export const ButtonPokedex = styled.button`
-  width: 95%;
-  height: 46%;
+  min-width: 10rem;
+  max-width: 12rem;
+  height: 3.4rem;
   background: #33a4f5;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   border: none;
   font-family: "Poppins", sans-serif;
   font-style: normal;
   font-weight: 700;
-  font-size: 2vw;
+  font-size: 1.8rem;
   color: #ffffff;
   cursor: pointer;
   align-self: center;
