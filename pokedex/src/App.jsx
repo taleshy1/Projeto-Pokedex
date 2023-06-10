@@ -1,13 +1,14 @@
-import { useState } from "react";
 import GlobalStyles from "./GlobalStyles";
 import { RouterPage } from "./routes/routes";
+import { ChakraProvider } from "@chakra-ui/react";
 
 function App() {
-  const [estado, setEstado] = useState()
   return (
     <>
       <GlobalStyles />
-      <RouterPage />
+      <ChakraProvider>
+        <RouterPage />
+      </ChakraProvider>
     </>
   );
 }

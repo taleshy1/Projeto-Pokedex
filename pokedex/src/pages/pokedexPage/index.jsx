@@ -1,12 +1,10 @@
-import { useState } from "react";
 import { PageTittle, PokeListContainer } from "../../GlobalStyles";
 import PokemonCard from "../../components/pokemonCard";
-import { useEffect } from "react";
 
 export default function PokedexPage({
   pokemonsOnPokedex,
   setPokemonsOnPokedex,
-  Pokemon,
+  // Pokemon,
   setPokemon,
 }) {
   const sorterdPokemons = pokemonsOnPokedex.sort((pokemon1, pokemon2) => {

@@ -1,10 +1,6 @@
 import styled from "styled-components";
 import themes from "../../utils/themes";
-// const getBackgroundColor = (type) => {
-//   if (type.length > 0) {
-//     return themes.colors.backgroundCard[type[0].type.name];
-//   }
-// }
+
 export const CardBox = styled.div`
   width: 30%;
   height: 27vh;
@@ -39,7 +35,7 @@ export const InfoBox = styled.div`
   color: #ffffff;
   font-family: "Inter Tight", sans-serif;
   height: 60%;
-  width: 60%;
+  width: 90%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -47,7 +43,8 @@ export const InfoBox = styled.div`
 `;
 
 export const InfoText = styled.div`
-  height: 50%;
+/* border: 1px solid black; */
+  /* height: 50%; */
 `;
 
 export const IdPokemon = styled.p`
@@ -60,9 +57,10 @@ export const NamePokemon = styled.p`
 export const TypesOnCard = styled.div`
   display: flex;
   gap: 3%;
-  width: 100%;
+  width: 55%;
   img {
-    width: 45%;
+    width: fit-content;
+    clip: auto;
   }
 `;
 
