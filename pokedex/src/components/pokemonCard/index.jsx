@@ -16,32 +16,27 @@ import {
 import pokeType from "../../utils/types";
 import fundoPokebola from "../../assets/fundo-pokebola.svg";
 import { GoToDetails } from "../../routes/coordination";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import {
-  Button,
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
   ModalBody,
-  ModalFooter,
   useDisclosure,
   ModalCloseButton,
   Box,
 } from "@chakra-ui/react";
+import { Global } from "../../context/global/globalContext";
+import { Router } from "../../context/routerContext";
 
-export default function PokemonCard({
-  pokemonInfos,
-  catchPokemon,
-  pokemonsOnPokedex,
-  setPokemonsOnPokedex,
-  setPokemon,
-}) {
+export default function PokemonCard({ pokemonInfos }) {
   const [pokemonIsOnPokedex, setPokemonIsOnPokedex] = useState(true);
-  const navigate = useNavigate();
-  const location = useLocation();
+  const { navigate, location } = useContext(Router);
+  const { catchPokemon, removePokemon, pokemonsOnPokedex, setPokemon } =
+    useContext(Global);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const OverlayOne = () => (
     <ModalOverlay
@@ -59,9 +54,7 @@ export default function PokemonCard({
     />
   );
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [overlay, setOverlay] = useState(<OverlayOne />);
-
   useEffect(() => {
     if (location.pathname === "/") {
       setPokemonIsOnPokedex(
@@ -69,22 +62,14 @@ export default function PokemonCard({
       );
     }
   });
-  function handleDetailButton() {
-    setPokemon(pokemonInfos);
-    GoToDetails(navigate, pokemonInfos.id);
-  }
-
-  function removePokemon(id) {
-    const newList = pokemonsOnPokedex.filter((pokemon) => pokemon.id !== id);
-    setPokemonsOnPokedex(newList);
-  }
 
   function handleCloseModal() {
     onClose();
     if (location.pathname === "/pokedex") {
-      removePokemon(pokemonInfos.id);
+      removePokemon(pokemonInfos);
     }
   }
+
   return (
     <CardBox>
       <PokeImg
@@ -109,7 +94,14 @@ export default function PokemonCard({
               })}
             </TypesOnCard>
           </InfoBox>
-          <ButtonDetails onClick={handleDetailButton}>Detalhes</ButtonDetails>
+          <ButtonDetails
+            onClick={() => {
+              setPokemon(pokemonInfos);
+              GoToDetails(navigate, pokemonInfos.id);
+            }}
+          >
+            Detalhes
+          </ButtonDetails>
         </InfoAndButtonBox>
         {!pokemonIsOnPokedex && (
           <CatchButton
@@ -142,9 +134,7 @@ export default function PokemonCard({
             <ModalHeader>OH NO!</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <Box>
-                O {pokemonInfos.name.toUpperCase()} foi removido da sua pokédex
-              </Box>
+              <Box>O pokemon foi removido da sua pokédex</Box>
             </ModalBody>
           </ModalContent>
         ) : (
@@ -152,9 +142,7 @@ export default function PokemonCard({
             <ModalHeader>Gotcha!</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <Box>
-                O {pokemonInfos.name.toUpperCase()} foi adicionado a sua pokédex
-              </Box>
+              <Box>O pokemon foi adicionado a sua pokédex</Box>
             </ModalBody>
           </ModalContent>
         )}

@@ -11,38 +11,25 @@ import {
 import logo from "../../assets/logo.svg";
 import lt from "../../assets/lt.svg";
 import { GoToHome, GoToPokedex } from "../../routes/coordination";
-import { useLocation, useNavigate } from "react-router-dom";
 
 import {
-  Button,
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
   ModalBody,
-  ModalFooter,
   useDisclosure,
   ModalCloseButton,
   Box,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { Global } from "../../context/global/globalContext";
+import { Router } from "../../context/routerContext";
 
-export default function Header({
-  setPokemonsOnPokedex,
-  pokemonsOnPokedex,
-  pokemon,
-  catchPokemon,
-}) {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const removePokemon = () => {
-    const newPokeList = pokemonsOnPokedex.filter(
-      (pokemonio) => pokemonio.id !== pokemon.id
-    );
-    setPokemonsOnPokedex(newPokeList);
-    GoToPokedex(navigate);
-  };
-
+export default function Header() {
+  const { navigate, location } = useContext(Router);
+  const { removePokemon, catchPokemon, pokemonsOnPokedex, pokemon } =
+    useContext(Global);
   const OverlayOne = () => (
     <ModalOverlay
       bg="blackAlpha.300"
@@ -63,16 +50,11 @@ export default function Header({
   const [overlay, setOverlay] = useState(<OverlayOne />);
   const [addOrRemove, setAddOrRemove] = useState("");
 
-  // function removePokemon(id) {
-  //   e.preventDefault();
-  //   const newList = pokemonsOnPokedex.filter((pokemon) => pokemon.id !== id);
-  //   setPokemonsOnPokedex(newList);
-  // }
-
   function handleCloseModal() {
     onClose();
     if (addOrRemove === "remove") {
-      removePokemon(pokemon.id);
+      removePokemon(pokemon);
+      GoToPokedex(navigate);
     } else {
       GoToPokedex(navigate);
     }

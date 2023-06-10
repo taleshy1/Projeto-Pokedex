@@ -26,13 +26,16 @@ import useRequest from "../../hooks/useGetPokeList";
 export default function PokedexDetailPage() {
   const id = useParams();
   const { data, isLoading } = useRequest(id.id);
+
   let moveCount = 0;
   let total = 0;
+
   if (!isLoading) {
     for (const stat of data.stats) {
       total += stat.base_stat;
     }
   }
+
   return (
     <>
       {isLoading ? (
