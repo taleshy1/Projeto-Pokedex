@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 export const HeaderStyled = styled.div`
   background-color: #ffffff;
-  height: 7rem;
+  height: 18vh;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(16, 1fr);
@@ -19,22 +19,21 @@ export const HeaderStyled = styled.div`
 `;
 
 export const Image = styled.img`
-  width: 14rem;
+ width: 64%;
   grid-column: 7/11;
   align-self: center;
 `;
 
 export const ButtonPokedex = styled.button`
-  min-width: 10rem;
-  max-width: 12rem;
-  height: 3.4rem;
+  width: 95%;
+  height: 50%;
   background: #33a4f5;
-  border-radius: 0.5rem;
+  border-radius: 0.4vw;
   border: none;
   font-family: "Poppins", sans-serif;
   font-style: normal;
   font-weight: 700;
-  font-size: 1.8rem;
+  font-size: 2vw;
   color: #ffffff;
   cursor: pointer;
   align-self: center;
@@ -48,7 +47,6 @@ export const ButtonAndLessBox = styled.div`
   grid-column: 2/5;
   display: flex;
   align-self: center;
-  gap: 2%;
   z-index: 2;
 `;
 export const ButtonBackToHome = styled.button`
@@ -64,17 +62,18 @@ export const ButtonBackToHome = styled.button`
 `;
 
 export const LessThanIcon = styled.img`
-  height: 25%;
+  height: 50%;
   align-self: center;
 `;
 
 export const ButtonRemovePokemon = styled.button`
-  height: 30%;
+ width: 95%;
+  height: 50%;
   border: none;
   font-family: "Poppins", sans-serif;
   font-style: normal;
   font-weight: 700;
-  font-size: 0.8vw;
+  font-size: 1.5vw;
   color: #ffffff;
   cursor: pointer;
   align-self: center;
@@ -86,18 +85,18 @@ export const ButtonRemovePokemon = styled.button`
 `;
 
 export const AdicionarAPokedex = styled.button`
-  height: 30%;
+width: 95%;
+  height: 50%;
+  background: #33a4f5;
+  border-radius: 0.4vw;
   border: none;
   font-family: "Poppins", sans-serif;
   font-style: normal;
   font-weight: 700;
-  font-size: 0.8vw;
+  font-size: 1.5vw;
   color: #ffffff;
   cursor: pointer;
   align-self: center;
   grid-column: 13/16;
-  width: 70%;
-  background: #33a4f5;
-  border-radius: 0.4vw;
   z-index: 2;
 `
