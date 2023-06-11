@@ -22,11 +22,12 @@ import {
   ModalCloseButton,
   Box,
 } from "@chakra-ui/react";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Global } from "../../context/global/globalContext";
 import { Router } from "../../context/routerContext";
 
 export default function Header() {
+  const [isSticky, setIsSticky] = useState(false);
   const { navigate, location } = useContext(Router);
   const { removePokemon, catchPokemon, pokemonsOnPokedex, pokemon } =
     useContext(Global);
@@ -59,9 +60,20 @@ export default function Header() {
       GoToPokedex(navigate);
     }
   }
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const actualHeigth = window.scrollY;
+      const heigthToActive = 20;
+      setIsSticky(actualHeigth > heigthToActive);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <>
-      <HeaderStyled>
+      <HeaderStyled sticky={isSticky}>
         {location.pathname !== "/" && (
           <ButtonAndLessBox>
             <LessThanIcon src={lt} />

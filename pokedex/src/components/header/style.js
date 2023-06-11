@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const HeaderStyled = styled.div`
   background-color: #ffffff;
@@ -6,6 +6,16 @@ export const HeaderStyled = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(16, 1fr);
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  transition: opacity 1s ease-in-out;
+
+  ${({ sticky }) =>
+    sticky &&
+    css`
+      opacity: 0.9;
+    `}
 `;
 
 export const Image = styled.img`

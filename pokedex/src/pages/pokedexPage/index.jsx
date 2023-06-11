@@ -16,6 +16,9 @@ export default function PokedexPage() {
   });
   setPokemonsOnPokedex(sorterdPokemons);
 
+  // if (isLoading) {
+  //   return <LoadingPage />;
+  // }
   return (
     <>
       <PageTittle>Meus Pokémons</PageTittle>
