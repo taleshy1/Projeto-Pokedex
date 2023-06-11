@@ -25,8 +25,16 @@ export default function PokemonListPage() {
           </PokeListContainer>
 
           <ButtonsDiv>
-            <Previous onClick={() => setPage(previous)}>Anterior</Previous>
-            <Next onClick={() => setPage(next)}>Próxima</Next>
+            <Previous
+              disabled={!previous}
+              onClick={() => setPage(previous)}
+              previous={previous}
+            >
+              Anterior
+            </Previous>
+            <Next disabled={!next} onClick={() => setPage(next)} next={next}>
+              Próxima
+            </Next>
           </ButtonsDiv>
         </>
       )}
