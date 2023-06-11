@@ -43,8 +43,7 @@ export const InfoBox = styled.div`
 `;
 
 export const InfoText = styled.div`
-/* border: 1px solid black; */
-  /* height: 50%; */
+
 `;
 
 export const IdPokemon = styled.p`
@@ -98,7 +97,7 @@ export const CatchButton = styled.button`
   position: absolute;
   bottom: 5%;
   right: 3%;
-  z-index: 20;
+  z-index: 2;
   cursor: url("https://cur.cursors-4u.net/games/gam-13/gam1282.cur"), pointer;
 `;
 
@@ -113,5 +112,5 @@ export const RemoveButton = styled.button`
   position: absolute;
   bottom: 5%;
   right: 3%;
-  z-index: 20;
+  z-index: 2;
 `

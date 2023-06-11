@@ -22,6 +22,7 @@ import pokeballDetail from "../../assets/pokeballDetailInsideBackground.svg";
 import pokeType from "../../utils/types";
 import { useParams } from "react-router-dom";
 import useRequest from "../../hooks/useGetPokeList";
+import LoadingPage from "../../components/loading";
 
 export default function PokedexDetailPage() {
   const id = useParams();
@@ -35,7 +36,9 @@ export default function PokedexDetailPage() {
       total += stat.base_stat;
     }
   }
-
+  if (isLoading) {
+    return <LoadingPage />;
+  }
   return (
     <>
       {isLoading ? (
