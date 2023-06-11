@@ -36,7 +36,7 @@ export const ButtonsDiv = styled.div`
 export const Previous = styled.button`
   width: 5vw;
   height: 80%;
-  background-color: rebeccapurple;
+  background-color: ${({ previous }) => (previous ? "purple" : "black")};
   border-radius: 0.4vw;
   color: white;
   cursor: ${({ previous }) => (previous ? "pointer" : "not-allowed")};
@@ -54,7 +54,7 @@ export const Previous = styled.button`
 export const Next = styled.button`
   width: 5vw;
   height: 80%;
-  background-color: purple;
+  background-color: ${({ next }) => (next ? "purple" : "black")};
   border-radius: 0.4vw;
   color: white;
   cursor: ${({ next }) => (next ? "pointer" : "not-allowed")};
