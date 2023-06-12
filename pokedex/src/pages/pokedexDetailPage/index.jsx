@@ -4,6 +4,7 @@ import {
   Container,
   InfosBox,
   InfosContainer,
+  LoadingContainer,
   MovesAndInfosContainer,
   MovesBox,
   NameIdTypeBox,
@@ -36,13 +37,10 @@ export default function PokedexDetailPage() {
       total += stat.base_stat;
     }
   }
-  if (isLoading) {
-    return <LoadingPage />;
-  }
   return (
-    <>
+    <LoadingContainer isLoading={isLoading}>
       {isLoading ? (
-        <PageTittle />
+        <LoadingPage />
       ) : (
         <>
           <PageTittle>Detalhes</PageTittle>
@@ -109,6 +107,6 @@ export default function PokedexDetailPage() {
           </Container>
         </>
       )}
-    </>
+    </LoadingContainer>
   );
 }

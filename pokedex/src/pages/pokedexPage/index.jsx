@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { PageTittle, PokeListContainer } from "../../GlobalStyles";
 import PokemonCard from "../../components/pokemonCard";
 import { Global } from "../../context/global/globalContext";
+import { useEffect } from "react";
 
 export default function PokedexPage() {
   const { pokemonsOnPokedex, setPokemonsOnPokedex } = useContext(Global);
@@ -15,10 +16,6 @@ export default function PokedexPage() {
     }
   });
   setPokemonsOnPokedex(sorterdPokemons);
-
-  // if (isLoading) {
-  //   return <LoadingPage />;
-  // }
   return (
     <>
       <PageTittle>Meus Pokémons</PageTittle>
