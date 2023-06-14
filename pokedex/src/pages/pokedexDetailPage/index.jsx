@@ -1,29 +1,12 @@
-import { PageTittle } from "../../GlobalStyles";
-import pokeballBackground from "../../assets/bigPokebola.svg";
-import {
-  Container,
-  InfosBox,
-  InfosContainer,
-  LoadingContainer,
-  MovesAndInfosContainer,
-  MovesBox,
-  NameIdTypeBox,
-  Pic1,
-  Pic2,
-  PicsContainer,
-  PokeBallBackground,
-  PokeballDetail,
-  PokemonImage,
-  ProgressBar,
-  Stats,
-  StatsContainer,
-  TypesBox,
-} from "./style";
+import pokeballBackground from "../../assets/pokeballBackGroundDetail.png";
+import { LoadingContainer } from "./style";
 import pokeballDetail from "../../assets/pokeballDetailInsideBackground.svg";
 import pokeType from "../../utils/types";
 import { useParams } from "react-router-dom";
 import useRequest from "../../hooks/useGetPokeList";
 import LoadingPage from "../../components/loading";
+import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import themes from "../../utils/themes";
 
 export default function PokedexDetailPage() {
   const id = useParams();
@@ -38,74 +21,206 @@ export default function PokedexDetailPage() {
     }
   }
   return (
-    <LoadingContainer isLoading={isLoading}>
+    <LoadingContainer isLoading={isLoading} position="relative">
       {isLoading ? (
         <LoadingPage />
       ) : (
-        <>
-          <PageTittle>Detalhes</PageTittle>
-          <PokeBallBackground src={pokeballBackground} alt="" />
-          <Container>
-            <InfosBox type={data.types}>
-              <PokeballDetail src={pokeballDetail} alt="pokeball" />
-              <PokemonImage
-                src={data.sprites.other["official-artwork"].front_default}
-                alt=""
-              />
+        <Box position="relative" w="100%">
+          <Text
+            color="white"
+            fontSize={{ md: "3rem", base: "1.5rem" }}
+            pt="3.75rem"
+            pl="2.5rem"
+            fontFamily="Poppins"
+          >
+            Detalhes
+          </Text>
+          <Image
+            position="absolute"
+            w="56.812rem"
+            h="56.812rem"
+            left="50%"
+            transform="translate(-50%)"
+            top="-1.688rem"
+            src={pokeballBackground}
+            alt=""
+          />
 
-              <InfosContainer>
-                <PicsContainer>
-                  <Pic1>
-                    <img src={data.sprites.front_default} alt="" />
-                  </Pic1>
-                  <Pic2>
-                    <img src={data.sprites.back_default} alt="" />
-                  </Pic2>
-                </PicsContainer>
-                <StatsContainer>
-                  <h2>Base stats</h2>
-                  {data.stats.map((stat) => (
-                    <Stats key={stat.stat.name}>
-                      <span>{stat.stat.name}</span>
-                      <span>{stat.base_stat}</span>
+          <Box
+            type={data.types}
+            position="absolute"
+            w="86.821rem"
+            h="41.438rem"
+            top="11.75rem"
+            left="50%"
+            transform="translate(-50%)"
+            borderRadius="2.368rem"
+            background={themes.colors.backgroundCard[data.types[0].type.name]}
+          >
+            <Image
+              position="absolute"
+              right={0}
+              src={pokeballDetail}
+              alt="pokeball"
+            />
+            <Image
+              position="absolute"
+              right="2.196rem"
+              top="-8.25rem"
+              w="16.875rem"
+              src={data.sprites.other["official-artwork"].front_default}
+              alt=""
+            />
 
-                      <ProgressBar stat={stat.base_stat}></ProgressBar>
-                    </Stats>
-                  ))}
-                  <Stats>
-                    <p>total:</p>
-                    <span>{total}</span>
-                  </Stats>
-                </StatsContainer>
-                <MovesAndInfosContainer>
-                  <NameIdTypeBox>
-                    <p>#{data.id < 10 ? `0${data.id}` : data.id}</p>
-                    <p>{data.name}</p>
-                    <TypesBox>
-                      {data.types.map((type) => {
-                        return (
-                          <img
-                            src={pokeType[type.type.name]}
-                            key={type.type.name}
-                          />
-                        );
-                      })}
-                    </TypesBox>
-                  </NameIdTypeBox>
-                  <MovesBox>
-                    <h2>Moves:</h2>
-                    {data.moves.map((move) => {
-                      if (moveCount < 8) {
+            <Flex p="1.5rem 0 1.625rem 2.75rem" h="38.313rem">
+              <Flex
+                flexDirection="column"
+                justifyContent="space-between"
+                w="17.625rem"
+                h="38.313rem"
+              >
+                <Flex
+                  backgroundColor="white"
+                  alignItems="center"
+                  justifyContent="center"
+                  h="17.625rem"
+                  w="17.625rem"
+                  borderRadius="0.5rem"
+                >
+                  <Image src={data.sprites.front_default} alt="" w="100%" />
+                </Flex>
+                <Flex
+                  backgroundColor="white"
+                  alignItems="center"
+                  justifyContent="center"
+                  h="17.625rem"
+                  w="17.625rem"
+                  borderRadius="0.5rem"
+                >
+                  <Image src={data.sprites.back_default} alt="" w="100%" />
+                </Flex>
+              </Flex>
+              <Flex
+                h="38.313rem"
+                w="21.438rem"
+                flexDirection="column"
+                backgroundColor="white"
+                borderRadius="0.8rem"
+                ml="2.125rem"
+              >
+                <Text
+                  as="h2"
+                  fontSize="2rem"
+                  fontWeight="bolder"
+                  fontFamily="Inter"
+                  m="1rem"
+                >
+                  Base stats
+                </Text>
+                {data.stats.map((stat) => (
+                  <Flex alignItems="center" mb="0.5rem">
+                    <Flex key={stat.stat.name} alignItems="center" w="35%">
+                      <Text
+                        w="70%"
+                        textAlign="right"
+                        textTransform="capitalize"
+                      >
+                        {stat.stat.name === "special-attack" ||
+                        stat.stat.name === "special-defense"
+                          ? stat.stat.name === "special-attack"
+                            ? "Sp.atk"
+                            : "Sp.def"
+                          : stat.stat.name}
+                      </Text>
+                      <Text w="fit-content" pl=".5rem">
+                        {stat.base_stat}
+                      </Text>
+                    </Flex>
+                    <Flex
+                      width={`${stat.base_stat / 2}%`}
+                      maxW="65%"
+                      backgroundColor={() =>
+                        `hsl(${stat.base_stat * 0.8}, 80%, 50%)`
+                      }
+                      height=".8rem"
+                      borderRadius="2rem"
+                      _before={{
+                        content: '""',
+                        borderRadius: "2vw",
+                        width: `${stat.base_stat}%`,
+                      }}
+                    />
+                  </Flex>
+                ))}
+
+                <Text pl="2rem">Total: {total}</Text>
+              </Flex>
+              <Flex
+                flexDirection="column"
+                w="18.25rem"
+                ml="4.25rem"
+                zIndex={3}
+                justifyContent="space-between"
+                height="38.313rem"
+              >
+                <Flex flexDirection="column" color="white">
+                  <Text fontSize="1rem">
+                    #{""}
+                    {data.id < 10 ? `0${data.id}` : data.id}
+                  </Text>
+                  <Text fontSize="3rem" textTransform="capitalize">
+                    {data.name}
+                  </Text>
+                  <Flex>
+                    {data.types.map((type) => {
+                      return (
+                        <img
+                          src={pokeType[type.type.name]}
+                          key={type.type.name}
+                        />
+                      );
+                    })}
+                  </Flex>
+                </Flex>
+                <Flex
+                  flexDirection="column"
+                  backgroundColor="white"
+                  h="28.313rem"
+                >
+                  <Text
+                    fontSize="1.5rem"
+                    fontWeight="bolder"
+                    pl="1.125rem"
+                    pt="1.125rem"
+                  >
+                    Moves:
+                  </Text>
+                  <Flex flexWrap="wrap">
+                    {data.moves.map((move, i) => {
+                      if (moveCount < 10) {
                         moveCount += 1;
-                        return <p>{move.move.name}</p>;
+                        return (
+                          <Text
+                            key={i}
+                            ml="1rem"
+                            p="1rem"
+                            mt=".5rem"
+                            backgroundColor="#ececec"
+                            border="1px dashed rgba(0, 0, 0, 0.14)"
+                            borderRadius="1.4rem"
+                            width="fit-content"
+                          >
+                            {move.move.name}
+                          </Text>
+                        );
                       }
                     })}
-                  </MovesBox>
-                </MovesAndInfosContainer>
-              </InfosContainer>
-            </InfosBox>
-          </Container>
-        </>
+                  </Flex>
+                </Flex>
+              </Flex>
+            </Flex>
+          </Box>
+        </Box>
       )}
     </LoadingContainer>
   );

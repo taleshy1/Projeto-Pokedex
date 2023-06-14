@@ -19,7 +19,7 @@ export const HeaderStyled = styled.div`
 `;
 
 export const Image = styled.img`
- width: 64%;
+  width: 64%;
   grid-column: 7/11;
   align-self: center;
 `;
@@ -32,7 +32,6 @@ export const ButtonPokedex = styled.button`
   border: none;
   font-family: "Poppins", sans-serif;
   font-style: normal;
-  font-weight: 700;
   font-size: 2vw;
   color: #ffffff;
   cursor: pointer;
@@ -54,7 +53,6 @@ export const ButtonBackToHome = styled.button`
   border: none;
   cursor: pointer;
   font-family: "Poppins";
-  font-weight: 700;
   font-size: 1.3vw;
   text-decoration-line: underline;
   color: #1a1a1a;
@@ -67,12 +65,11 @@ export const LessThanIcon = styled.img`
 `;
 
 export const ButtonRemovePokemon = styled.button`
- width: 95%;
+  width: 95%;
   height: 50%;
   border: none;
   font-family: "Poppins", sans-serif;
   font-style: normal;
-  font-weight: 700;
   font-size: 1.5vw;
   color: #ffffff;
   cursor: pointer;
@@ -85,7 +82,7 @@ export const ButtonRemovePokemon = styled.button`
 `;
 
 export const AdicionarAPokedex = styled.button`
-width: 95%;
+  width: 95%;
   height: 50%;
   background: #33a4f5;
   border-radius: 0.4vw;
@@ -99,4 +96,4 @@ width: 95%;
   align-self: center;
   grid-column: 13/16;
   z-index: 2;
-`
+`;
