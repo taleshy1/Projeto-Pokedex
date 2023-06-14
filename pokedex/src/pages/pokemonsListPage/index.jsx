@@ -1,14 +1,24 @@
 import { useContext } from "react";
-import { PageTittle, PokeListContainer } from "../../GlobalStyles";
 import PokemonCard from "../../components/pokemonCard";
 import useRequest from "../../hooks/useGetPokeList";
-import { ButtonsDiv, LoadingContainer, Next, Previous } from "./style";
+import { LoadingContainer } from "./style";
 import { Global } from "../../context/global/globalContext";
 import LoadingPage from "../../components/loading";
+import { Button, Flex, Grid, Text } from "@chakra-ui/react";
 
 export default function PokemonListPage() {
   const { setPage } = useContext(Global);
   const { data, isLoading, previous, next } = useRequest("", []);
+
+  const fadeInAnimation = {
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+  };
+
+  const fadeOutAnimation = {
+    from: { opacity: 1 },
+    to: { opacity: 0 },
+  };
 
   return (
     <LoadingContainer isLoading={isLoading}>
@@ -16,26 +26,51 @@ export default function PokemonListPage() {
         <LoadingPage />
       ) : (
         <>
-          <PageTittle>Todos Pokémons</PageTittle>
-
-          <PokeListContainer>
+          <Text
+            color="white"
+            fontSize={{ md: "3rem", base: "1.5rem" }}
+            mt="3.75rem"
+            ml="2.5rem"
+            fontFamily="Poppins"
+          >
+            Meus Pokémons
+          </Text>
+          <Grid
+            templateColumns={{ md: "repeat(3, 1fr)", base: "1fr" }}
+            justifyItems="center"
+            gap={{ md: "10", base: "none" }}
+          >
             {data.map((pokemon) => {
               return <PokemonCard key={pokemon.id} pokemonInfos={pokemon} />;
             })}
-          </PokeListContainer>
+          </Grid>
 
-          <ButtonsDiv>
-            <Previous
+          <Flex justifyContent="center" m="2rem 0" gap="3rem">
+            <Button
               disabled={!previous}
               onClick={() => setPage(previous)}
               previous={previous}
+              color="white"
+              _hover={previous ? { bg: "bisque", color: "black" } : "none"}
+              backgroundColor={previous ? "purple" : "black"}
+              cursor={previous ? "pointer" : "not-allowed"}
+              borderRadius="0.8rem"
             >
               Anterior
-            </Previous>
-            <Next disabled={!next} onClick={() => setPage(next)} next={next}>
+            </Button>
+            <Button
+              disabled={!next}
+              onClick={() => setPage(next)}
+              next={next}
+              color="white"
+              _hover={next ? { bg: "bisque", color: "black" } : "none"}
+              backgroundColor={next ? "purple" : "black"}
+              cursor={next ? "pointer" : "not-allowed"}
+              borderRadius="0.8rem"
+            >
               Próxima
-            </Next>
-          </ButtonsDiv>
+            </Button>
+          </Flex>
         </>
       )}
     </LoadingContainer>

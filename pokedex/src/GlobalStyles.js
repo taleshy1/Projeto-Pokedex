@@ -17,7 +17,6 @@ export const PageTittle = styled.h1`
   margin: 2% 0 0.2% 3%;
   font-family: "Poppins", sans-serif;
   font-style: normal;
-  font-weight: 700;
   font-size: 3vw;
 
   color: #ffffff;
