@@ -157,7 +157,7 @@ export default function PokemonCard({ pokemonInfos }) {
             borderRadius="0.5rem"
             fontSize="1rem"
             zIndex={2}
-            cursor='url("https://cur.cursors-4u.net/games/gam-13/gam1282.cur"), pointer'
+            cursor='url("https://cur.cursors-4u.net/games/gam-13/gam1282.cur")'
           >
             Capturar!
           </Button>
