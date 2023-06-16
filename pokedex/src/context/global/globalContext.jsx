@@ -20,7 +20,10 @@ const GlobalContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    setPokemonsOnPokedex(JSON.parse(localStorage.getItem("pokemons")));
+    const pokemonsOnLocalStorage = JSON.parse(localStorage.getItem("pokemons"));
+    pokemonsOnLocalStorage
+      ? setPokemonsOnPokedex(pokemonsOnLocalStorage)
+      : setPokemonsOnPokedex([]);
   }, []);
 
   useEffect(() => {

@@ -7,10 +7,12 @@ import useRequest from "../../hooks/useGetPokeList";
 import LoadingPage from "../../components/loading";
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import themes from "../../utils/themes";
+import { useMediaQuery } from "@chakra-ui/react";
 
 export default function PokedexDetailPage() {
   const id = useParams();
   const { data, isLoading } = useRequest(id.id);
+  const [smallerScreen] = useMediaQuery("(max-width: 1280px)");
 
   let moveCount = 0;
   let total = 0;
@@ -20,12 +22,136 @@ export default function PokedexDetailPage() {
       total += stat.base_stat;
     }
   }
+  console.log(data);
   return (
     <LoadingContainer isLoading={isLoading} position="relative">
       {isLoading ? (
         <LoadingPage />
+      ) : smallerScreen ? (
+        <>
+          <Box>
+            <Text
+              color="white"
+              fontSize={{ md: "2rem", base: "1rem" }}
+              pl="2.5rem"
+              fontFamily="Poppins"
+              textAlign="center"
+              pt={"2rem"}
+              ml="50%"
+              transform="translate(-60%)"
+            >
+              Detalhes
+            </Text>
+            <Flex flexDirection={"column"}>
+              <Text
+                textTransform={"capitalize"}
+                color={themes.colors.backgroundCard[data.types[0].type.name]}
+                textAlign={"center"}
+                fontSize={{ md: "3rem", base: "2rem" }}
+              >
+                #{data.id < 10 ? `0${data.id}` : data.id} {data.name}
+              </Text>
+              <Image
+                src={data.sprites.other.dream_world.front_default}
+                maxW={{ base: "10rem", md: "20rem" }}
+                m={"auto"}
+                mt="2rem"
+              />
+              <Flex
+                flexDir="column"
+                w="80%"
+                bgColor="white"
+                m="auto"
+                mt="3rem"
+                pb="1rem"
+                h={`fit-content`}
+              >
+                <Text m="auto" fontSize="2rem">
+                  STATUS
+                </Text>
+                {data.stats.map((stat) => (
+                  <Flex alignItems="center" mb="0.5rem">
+                    <Flex key={stat.stat.name} alignItems="center" w="35%">
+                      <Text
+                        w="70%"
+                        textAlign="right"
+                        textTransform="capitalize"
+                      >
+                        {stat.stat.name === "special-attack" ||
+                        stat.stat.name === "special-defense"
+                          ? stat.stat.name === "special-attack"
+                            ? "Sp.atk"
+                            : "Sp.def"
+                          : stat.stat.name}
+                      </Text>
+                      <Text w="fit-content" pl=".5rem">
+                        {stat.base_stat}
+                      </Text>
+                    </Flex>
+                    <Flex
+                      width={`${stat.base_stat / 2}%`}
+                      maxW="63%"
+                      backgroundColor={() =>
+                        `hsl(${stat.base_stat * 0.8}, 80%, 50%)`
+                      }
+                      height=".8rem"
+                      borderRadius="2rem"
+                      _before={{
+                        content: '""',
+                        borderRadius: "2vw",
+                        width: `${stat.base_stat}%`,
+                      }}
+                    />
+                  </Flex>
+                ))}
+                <Text m={"auto"} fontSize={"1.5rem"}>
+                  Total: {total}
+                </Text>
+              </Flex>
+              <Flex
+                flexDir="column"
+                w="80%"
+                bgColor="white"
+                m="auto"
+                mt="3rem"
+                h={`fit-content`}
+                mb="3rem"
+                pb="1rem"
+                alignItems={"center"}
+              >
+                <Text m="auto" fontSize="2rem">
+                  MOVES
+                </Text>
+                <Flex
+                  flexDir={{ base: "column", md: "row" }}
+                  flexWrap={{ md: "wrap" }}
+                >
+                  {data.moves.map((move, i) => {
+                    if (moveCount < 10) {
+                      moveCount += 1;
+                      return (
+                        <Text
+                          key={i}
+                          ml="1rem"
+                          p="1rem"
+                          mt=".5rem"
+                          backgroundColor="#ececec"
+                          border="1px dashed rgba(0, 0, 0, 0.14)"
+                          borderRadius="1.4rem"
+                          width="fit-content"
+                        >
+                          {move.move.name}
+                        </Text>
+                      );
+                    }
+                  })}
+                </Flex>
+              </Flex>
+            </Flex>
+          </Box>
+        </>
       ) : (
-        <Box position="relative" w="100%">
+        <Box position="relative">
           <Text
             color="white"
             fontSize={{ md: "3rem", base: "1.5rem" }}
@@ -50,6 +176,7 @@ export default function PokedexDetailPage() {
             type={data.types}
             position="absolute"
             w="86.821rem"
+            maxW="100%"
             h="41.438rem"
             top="11.75rem"
             left="50%"

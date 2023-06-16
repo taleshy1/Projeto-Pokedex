@@ -45,6 +45,7 @@ export default function PokemonCard({ pokemonInfos }) {
   );
 
   const [overlay, setOverlay] = useState(<OverlayOne />);
+
   useEffect(() => {
     if (location.pathname === "/") {
       setPokemonIsOnPokedex(
@@ -156,8 +157,10 @@ export default function PokemonCard({ pokemonInfos }) {
             width={{ md: "9.125rem", base: "5rem" }}
             borderRadius="0.5rem"
             fontSize="1rem"
+            bgColor="#ffffff"
+            font-family="Poppins, sans-serif"
             zIndex={2}
-            cursor='url("https://cur.cursors-4u.net/games/gam-13/gam1282.cur")'
+            cursor='url("https://cur.cursors-4u.net/games/gam-13/gam1282.cur"), pointer'
           >
             Capturar!
           </Button>
