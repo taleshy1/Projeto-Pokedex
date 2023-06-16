@@ -10,16 +10,6 @@ export default function PokemonListPage() {
   const { setPage } = useContext(Global);
   const { data, isLoading, previous, next } = useRequest("", []);
 
-  const fadeInAnimation = {
-    from: { opacity: 0 },
-    to: { opacity: 1 },
-  };
-
-  const fadeOutAnimation = {
-    from: { opacity: 1 },
-    to: { opacity: 0 },
-  };
-
   return (
     <LoadingContainer isLoading={isLoading}>
       {isLoading ? (
@@ -28,17 +18,20 @@ export default function PokemonListPage() {
         <>
           <Text
             color="white"
-            fontSize={{ md: "3rem", base: "1.5rem" }}
+            fontSize={{ lg: "3rem", base: "1.5rem" }}
             mt="3.75rem"
             ml="2.5rem"
             fontFamily="Poppins"
           >
-            Meus Pokémons
+            Todos os pokémons
           </Text>
           <Grid
-            templateColumns={{ md: "repeat(3, 1fr)", base: "1fr" }}
+            templateColumns={{
+              "2xl": "repeat(3, 1fr)",
+              lg: "repeat(2, 1fr)",
+              base: "1fr",
+            }}
             justifyItems="center"
-            gap={{ md: "10", base: "none" }}
           >
             {data.map((pokemon) => {
               return <PokemonCard key={pokemon.id} pokemonInfos={pokemon} />;

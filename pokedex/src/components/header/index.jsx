@@ -1,13 +1,3 @@
-import {
-  AdicionarAPokedex,
-  ButtonAndLessBox,
-  ButtonBackToHome,
-  ButtonPokedex,
-  ButtonRemovePokemon,
-  HeaderStyled,
-  Image,
-  LessThanIcon,
-} from "./style";
 import logo from "../../assets/logo.svg";
 import lt from "../../assets/lt.svg";
 import { GoToHome, GoToPokedex } from "../../routes/coordination";
@@ -21,6 +11,11 @@ import {
   useDisclosure,
   ModalCloseButton,
   Box,
+  Grid,
+  Flex,
+  GridItem,
+  Button,
+  Image,
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { Global } from "../../context/global/globalContext";
@@ -70,53 +65,117 @@ export default function Header() {
 
     window.addEventListener("scroll", handleScroll);
   }, []);
-
+  console.log(pokemonsOnPokedex);
   return (
     <>
-      <HeaderStyled sticky={isSticky}>
+      <Grid
+        backgroundColor="#ffffff"
+        height={{ md: "10rem", base: "5rem" }}
+        position="sticky"
+        top={0}
+        zIndex={3}
+        templateColumns="repeat(16, 1fr)"
+        opacity={isSticky ? 0.9 : 1}
+        transition="opacity 1s ease-in-out"
+        alignContent="center"
+      >
         {location.pathname !== "/" && (
-          <ButtonAndLessBox>
-            <LessThanIcon src={lt} />
-            <ButtonBackToHome onClick={() => GoToHome(navigate)}>
-              Todos Pokémons
-            </ButtonBackToHome>
-          </ButtonAndLessBox>
+          <GridItem
+            colStart={{ base: 1, md: 2 }}
+            colEnd={{ base: 8, md: 8, lg: 7 }}
+          >
+            <Flex maxW="100%" h="100%" alignItems={"center"}>
+              <Image src={lt} />
+              <Button
+                bgColor="transparent"
+                textDecoration="underline"
+                fontWeight="bolder"
+                fontSize={{ base: "1rem", md: "1.5rem" }}
+                _hover="none"
+                p={0}
+                onClick={() => GoToHome(navigate)}
+              >
+                Todos os Pokémons
+              </Button>
+            </Flex>
+          </GridItem>
         )}
-
-        <Image src={logo} />
+        <GridItem colStart={{ lg: 7 }} colEnd={{ lg: 12 }}>
+          <Image
+            src={logo}
+            display={{ base: "none", md: "none", lg: "block" }}
+          />
+        </GridItem>
 
         {location.pathname === "/" && (
-          <ButtonPokedex onClick={() => GoToPokedex(navigate)}>
-            Pokédex
-          </ButtonPokedex>
+          <GridItem
+            colStart={{ base: 11, md: 12, lg: 13 }}
+            colEnd={{ base: 16, md: 16, lg: 16 }}
+            display="flex"
+            alignItems="center"
+          >
+            <Button
+              bgColor="#33A4F5"
+              color="white"
+              _hover="none"
+              _active="none"
+              w={{ base: "10rem", md: "17.938rem" }}
+              h={{ base: "3rem", md: "4.625rem" }}
+              fontSize="1.5rem"
+              onClick={() => GoToPokedex(navigate)}
+            >
+              Pokédex
+            </Button>
+          </GridItem>
         )}
+        <GridItem
+          colStart={{ base: 9, md: 12, lg: 13 }}
+          colEnd={{ base: 16, md: 16, lg: 16 }}
+          display={"flex"}
+          alignItems={"center"}
+        >
+          {location.pathname.includes("/details") &&
+            (pokemonsOnPokedex.find(
+              (pokemonio) => pokemonio.id === pokemon.id
+            ) ? (
+              <Button
+                w={{ base: "12rem", lg: "17.938rem" }}
+                h={{ base: "3rem", lg: "4.625rem" }}
+                bgColor=" #ff6262"
+                color="#ffffff"
+                _hover="none"
+                _active="none"
+                cursor="pointer"
+                onClick={() => {
+                  setOverlay(<OverlayOne />);
+                  onOpen();
+                  setAddOrRemove("remove");
+                }}
+              >
+                Excluir da Pokédex
+              </Button>
+            ) : (
+              <Button
+                w={{ base: "12rem", lg: "17.938rem" }}
+                h={{ base: "3rem", lg: "4.625rem" }}
+                bgColor=" #33a4f5"
+                color="#ffffff"
+                _hover="none"
+                _active="none"
+                cursor="pointer"
+                onClick={() => {
+                  catchPokemon(pokemon);
+                  setOverlay(<OverlayTwo />);
+                  onOpen();
+                  setAddOrRemove("add");
+                }}
+              >
+                Adicionar a pokédex
+              </Button>
+            ))}
+        </GridItem>
+      </Grid>
 
-        {location.pathname.includes("/details") &&
-          (pokemonsOnPokedex.find(
-            (pokemonio) => pokemonio.id === pokemon.id
-          ) ? (
-            <ButtonRemovePokemon
-              onClick={() => {
-                setOverlay(<OverlayOne />);
-                onOpen();
-                setAddOrRemove("remove");
-              }}
-            >
-              Excluir da Pokédex
-            </ButtonRemovePokemon>
-          ) : (
-            <AdicionarAPokedex
-              onClick={() => {
-                catchPokemon(pokemon);
-                setOverlay(<OverlayTwo />);
-                onOpen();
-                setAddOrRemove("add");
-              }}
-            >
-              Adicionar a pokédex
-            </AdicionarAPokedex>
-          ))}
-      </HeaderStyled>
       <Modal isCentered isOpen={isOpen} onClose={handleCloseModal}>
         {overlay}
         {addOrRemove === "remove" ? (
