@@ -22,7 +22,7 @@ export default function PokedexDetailPage() {
       total += stat.base_stat;
     }
   }
-  console.log(data);
+  // console.log(data);
   return (
     <LoadingContainer isLoading={isLoading} position="relative">
       {isLoading ? (
