@@ -65,7 +65,7 @@ export default function Header() {
 
     window.addEventListener("scroll", handleScroll);
   }, []);
-  console.log(pokemonsOnPokedex);
+  // console.log(pokemonsOnPokedex);
   return (
     <>
       <Grid
