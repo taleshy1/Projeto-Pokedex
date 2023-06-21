@@ -1,7 +1,7 @@
 {
   "name": "pokedex",
   "private": true,
-  "homepage": "https://taleshy1.github.io/Projeto-Pokedex/pokedex",
+  "homepage": "https://taleshy1.github.io/Projeto-Pokedex/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
