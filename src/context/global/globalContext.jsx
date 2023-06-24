@@ -6,6 +6,7 @@ export const Global = createContext();
 const GlobalContextProvider = ({ children }) => {
   const [pokemonsOnPokedex, setPokemonsOnPokedex] = useState([]);
   const [pokemon, setPokemon] = useState({});
+  const [globalLoading, setGlobalLoading] = useState(true);
   const [page, setPage] = useState("");
 
   const catchPokemon = (pokemon) => {
@@ -43,6 +44,8 @@ const GlobalContextProvider = ({ children }) => {
         setPokemon,
         page,
         setPage,
+        globalLoading,
+        setGlobalLoading,
       }}
     >
       {children}

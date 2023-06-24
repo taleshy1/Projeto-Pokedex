@@ -8,12 +8,14 @@ import LoadingPage from "../../components/loading";
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import themes from "../../utils/themes";
 import { useMediaQuery } from "@chakra-ui/react";
+import { useContext, useEffect } from "react";
+import { Global } from "../../context/global/globalContext";
 
 export default function PokedexDetailPage() {
   const id = useParams();
   const { data, isLoading } = useRequest(id.id);
   const [smallerScreen] = useMediaQuery("(max-width: 1280px)");
-
+  const { setPokemon } = useContext(Global);
   let moveCount = 0;
   let total = 0;
 
@@ -22,7 +24,11 @@ export default function PokedexDetailPage() {
       total += stat.base_stat;
     }
   }
-  // console.log(data);
+  useEffect(() => {
+    if (!isLoading) {
+      setPokemon(data);
+    }
+  });
   return (
     <LoadingContainer isLoading={isLoading} position="relative">
       {isLoading ? (

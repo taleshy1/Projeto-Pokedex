@@ -7,7 +7,7 @@ import LoadingPage from "../../components/loading";
 import { Button, Flex, Grid, Text } from "@chakra-ui/react";
 
 export default function PokemonListPage() {
-  const { setPage } = useContext(Global);
+  const { setPage, pokemonsOnPokedex } = useContext(Global);
   const { data, isLoading, previous, next } = useRequest("", []);
 
   return (
@@ -33,16 +33,23 @@ export default function PokemonListPage() {
             }}
             justifyItems="center"
           >
-            {data.map((pokemon) => {
-              return <PokemonCard key={pokemon.id} pokemonInfos={pokemon} />;
-            })}
+            {/* {data.map(
+              (pokemon) =>
+                !pokemonsOnPokedex.find((poke) => poke.id === pokemon.id) && (
+                  <PokemonCard key={pokemon.id} pokemonInfos={pokemon} />
+                )
+            )}  //!-- IF YOU WANNA USE THIS FUNCTION TO REMOVE THE CARD AFTER ADD A POKEMON IN YOUR POKEDEX, CHANGE THE MODAL INSIDE THE CARD TOO, BECAUSE THE MODAL WILL DISAPEAR AS THE MODAL, SO PUT THE FUNCTION THAT WILL ADD THE POKEMON INSIDE THE CUSTOM FUNCTION CREATED ON CARD "handleCloseModal"*/}
+
+            {data.map((pokemon) => (
+              <PokemonCard key={pokemon.id} pokemonInfos={pokemon} />
+            ))}
           </Grid>
 
           <Flex justifyContent="center" m="2rem 0" gap="3rem">
             <Button
-              disabled={!previous}
+              disabled={previous}
               onClick={() => setPage(previous)}
-              previous={previous}
+              // previous={previous}
               color="white"
               _hover={previous ? { bg: "bisque", color: "black" } : "none"}
               backgroundColor={previous ? "purple" : "black"}
@@ -52,9 +59,9 @@ export default function PokemonListPage() {
               Anterior
             </Button>
             <Button
-              disabled={!next}
+              disabled={next}
               onClick={() => setPage(next)}
-              next={next}
+              // next={next}
               color="white"
               _hover={next ? { bg: "bisque", color: "black" } : "none"}
               backgroundColor={next ? "purple" : "black"}

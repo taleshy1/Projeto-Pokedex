@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import PokemonCard from "../../components/pokemonCard";
 import { Global } from "../../context/global/globalContext";
 import { Grid, Text } from "@chakra-ui/react";
@@ -14,7 +14,9 @@ export default function PokedexPage() {
       return 1;
     }
   });
-  setPokemonsOnPokedex(sorterdPokemons);
+  useEffect(() => {
+    setPokemonsOnPokedex(sorterdPokemons);
+  }, [pokemonsOnPokedex]);
   return (
     <>
       <Text

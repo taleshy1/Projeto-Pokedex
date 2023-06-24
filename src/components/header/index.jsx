@@ -24,8 +24,13 @@ import { Router } from "../../context/routerContext";
 export default function Header() {
   const [isSticky, setIsSticky] = useState(false);
   const { navigate, location } = useContext(Router);
-  const { removePokemon, catchPokemon, pokemonsOnPokedex, pokemon } =
-    useContext(Global);
+  const {
+    removePokemon,
+    catchPokemon,
+    pokemonsOnPokedex,
+    pokemon,
+    globalLoading,
+  } = useContext(Global);
   const OverlayOne = () => (
     <ModalOverlay
       bg="blackAlpha.300"
@@ -65,7 +70,6 @@ export default function Header() {
 
     window.addEventListener("scroll", handleScroll);
   }, []);
-  // console.log(pokemonsOnPokedex);
   return (
     <>
       <Grid
@@ -135,6 +139,7 @@ export default function Header() {
           alignItems={"center"}
         >
           {location.pathname.includes("/details") &&
+            !globalLoading &&
             (pokemonsOnPokedex.find(
               (pokemonio) => pokemonio.id === pokemon.id
             ) ? (
