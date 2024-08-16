@@ -1,5 +1,5 @@
 import logo from "../../assets/logo.svg";
-import lt from "../../assets/lt.svg";
+import lt from "../../assets/Lt.svg";
 import { GoToHome, GoToPokedex } from "../../routes/coordination";
 
 import {
