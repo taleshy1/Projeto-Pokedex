@@ -1,0 +1,6 @@
+{
+    "rewrites": [
+        {"source": "/(.*)", "destination": "/"},
+        {"source": "/pokedex(.*)", "destination":"/pokedex"}
+    ]
+}
